@@ -55,6 +55,12 @@
 			 <version>8.0.13</version>
 			<scope>runtime</scope>
 		</dependency>
+		
+		<!-- Migrações Flyway -->
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
 
 	</dependencies>
 

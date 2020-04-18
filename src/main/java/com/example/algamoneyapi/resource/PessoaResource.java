@@ -5,10 +5,8 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,10 +22,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.example.algamoneyapi.event.RecursoCriadoEvent;
 import com.example.algamoneyapi.model.Pessoa;
 import com.example.algamoneyapi.repository.PessoaRepository;
+import com.example.algamoneyapi.resource.service.PessoaService;
 
 @RestController
 @RequestMapping("/pessoas")
 public class PessoaResource {
+
+	@Autowired
+	PessoaService pessoaService;
 	
 	@Autowired
 	private PessoaRepository pessoaRepository;
@@ -73,17 +75,10 @@ public class PessoaResource {
 	
 	
 	@PutMapping("/{codigo}")
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public Pessoa atualizarPessoa(@PathVariable Long codigo,@Valid @RequestBody Pessoa pessoa ){
-		Pessoa pessoaSalva = this.pessoaRepository.findById(codigo)
-			      .orElseThrow(() -> new EmptyResultDataAccessException(1));
-		/**BeansUtils pode ser usado para ajudar a tratar os dados para atualziar
-		 * Source: A fonte dos dados - no caso da classe pessoas
-		 * target: Para onde irei mandar os dados - no caso para minha variavel pessoaSalva
-		 * ignoreProperties: qual dado devo ignorar - no caso o codigo que é codigo*/
-		//BeanUtils.copyProperties(source, target, ignoreProperties);
 
-			  BeanUtils.copyProperties(pessoa, pessoaSalva, "codigo");
-
+			  Pessoa pessoaSalva = pessoaService.atualizar(pessoa, codigo);
 			  return this.pessoaRepository.save(pessoaSalva);
 }
 }

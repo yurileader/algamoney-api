@@ -48,7 +48,6 @@ public class PessoaResource {
 	@GetMapping("/{codigo}")
 	public ResponseEntity<Pessoa> buscarPeloCodigo(@PathVariable Long codigo) {
 		
-		
 	  return this.pessoaRepository.findById(codigo)
 	      .map(pessoa -> ResponseEntity.ok(pessoa))
 	      .orElse(ResponseEntity.notFound().build());
@@ -66,9 +65,11 @@ public class PessoaResource {
 	}
 	
 	
+	
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void remover(@PathVariable Long codigo) {
+
 		pessoaRepository.deleteById(codigo);
 	}
 	
@@ -80,6 +81,7 @@ public class PessoaResource {
 			  Pessoa pessoaSalva = pessoaService.atualizar(pessoa, codigo);
 			  return this.pessoaRepository.save(pessoaSalva);
 	}
+	
 	
 	@PutMapping("/{codigo}/ativo")
 	@ResponseStatus(HttpStatus.NO_CONTENT)

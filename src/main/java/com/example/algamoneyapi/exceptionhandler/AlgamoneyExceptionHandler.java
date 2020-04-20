@@ -18,6 +18,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
@@ -31,15 +32,15 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 	//Trata as mensagens de erro do Spring
 	@Override
 	protected ResponseEntity<Object> handleHttpMessageNotReadable(HttpMessageNotReadableException ex,
-			HttpHeaders headers, HttpStatus status, WebRequest request) {
-		
-		String mensagemUsuario = messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
-		String mensagemDesenvolvedor = Optional.ofNullable(ex.getCause()).orElse(ex).toString();
-		
-		List<Error> erros = Arrays.asList(new Error(mensagemUsuario, mensagemDesenvolvedor));
-		return handleExceptionInternal(ex, erros , headers, HttpStatus.BAD_REQUEST, request);
-	}
-	
+		    HttpHeaders headers, HttpStatus status, WebRequest request) {
+
+		  String mensagemUsuario = this.messageSource.getMessage("mensagem.invalida", null, LocaleContextHolder.getLocale());
+		  String mensagemDesenvolvedor = Optional.ofNullable(ex.getCause()).orElse(ex).toString();
+
+		  List<Error> erros = Arrays.asList(new Error(mensagemUsuario, mensagemDesenvolvedor));
+
+		  return handleExceptionInternal(ex, erros, headers, HttpStatus.BAD_REQUEST, request);
+		}
 	
 	/* Usado quando a validação de um argumento não é valido*/
 	@Override
@@ -53,7 +54,8 @@ public class AlgamoneyExceptionHandler extends ResponseEntityExceptionHandler {
 	}
 	
 	//Trata excecoes de recurso nao encontrado
-	@ExceptionHandler({EmptyResultDataAccessException.class})
+	@ExceptionHandler({ EmptyResultDataAccessException.class })
+	@ResponseStatus()
 	public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex,WebRequest request) {
 		
 		String mensagemUsuario = messageSource.getMessage("recurso.nao-encontrado", null, LocaleContextHolder.getLocale());

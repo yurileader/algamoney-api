@@ -27,11 +27,11 @@ public class Lancamento {
 	private String observacao;
 	
 	@Column(name = "data_vencimento")
-	@JsonFormat(pattern =  "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataVencimento;
 
 	@Column(name = "data_pagamento")
-	@JsonFormat(pattern =  "dd/MM/yyyy")
+	@JsonFormat(pattern = "yyyy-MM-dd")
 	private LocalDate dataPagamento;
 	
 	private  BigDecimal valor; 

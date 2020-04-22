@@ -39,7 +39,7 @@ public class PessoaService {
 
 	
 	
-	private Pessoa encontrarPessoa(Long codigo) {
+	public Pessoa encontrarPessoa(Long codigo) {
 		Pessoa pessoaSalva = this.pessoaRepository.findById(codigo)
 				.orElseThrow(() -> new EmptyResultDataAccessException(1));
 		return pessoaSalva;

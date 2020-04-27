@@ -29,8 +29,9 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 			.withClient("angular") 
 			.secret("angular01")
 			.scopes("read", "write")
-			.authorizedGrantTypes("password") 
-			.accessTokenValiditySeconds(1800);
+			.authorizedGrantTypes("password", "refresh_token") 
+			.refreshTokenValiditySeconds(3600 * 24)
+			.accessTokenValiditySeconds(40);
 	}
 
 	
@@ -40,6 +41,7 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 		endpoints
 			.tokenStore(tokenStore())
 			.accessTokenConverter(accessTokenConverter())
+			.reuseRefreshTokens(false)
 		    .authenticationManager(authenticationManager); //<<< É onde ficará armazenado o token
 	}
 

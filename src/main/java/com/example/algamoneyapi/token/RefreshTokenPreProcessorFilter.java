@@ -41,7 +41,7 @@ public class RefreshTokenPreProcessorFilter implements Filter{
 	    req = new MyServletRequestWrapper(req, refreshToken);
 	  }
 
-	  chain.doFilter(req, response);
+	  chain.doFilter(req, response); 
 	}
 	
 	
@@ -58,7 +58,7 @@ public class RefreshTokenPreProcessorFilter implements Filter{
 		}
 
 		@Override
-		public Map<String, String[]> getParameterMap() { //criar o  o getParameterMap
+		public Map<String, String[]> getParameterMap() {
 
 			ParameterMap<String, String[]> map = new ParameterMap<>(getRequest().getParameterMap());
 			map.put("refresh_token", new String[] { refreshToken }); //refresh_token é o nome que o spring irá buscar o token

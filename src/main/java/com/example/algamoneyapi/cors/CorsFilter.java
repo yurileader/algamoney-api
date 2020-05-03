@@ -15,7 +15,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 @Component
-@Order(Ordered.HIGHEST_PRECEDENCE)
+@Order(Ordered.HIGHEST_PRECEDENCE) //Declara a ordem de alta prioridade para executar logo no inicio
 public class CorsFilter implements Filter{
 
 	private String originPermitida = "http://localhost:8000"; //TODO Configurar para diferentes ambientes

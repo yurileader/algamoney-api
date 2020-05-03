@@ -6,6 +6,9 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.ResourceServerConfigurerAdapter;
 import org.springframework.security.oauth2.config.annotation.web.configurers.ResourceServerSecurityConfigurer;
@@ -14,14 +17,18 @@ import org.springframework.security.oauth2.config.annotation.web.configurers.Res
 @EnableResourceServer // Incluir para implementar o oauth2
 @EnableWebSecurity
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
-
+	
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	@Autowired
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
+		
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+		}
 
-		auth.inMemoryAuthentication()
-		.withUser("admin").password("admin").roles("ROLE");
-	}
+	
+
 
 
 	@Override
@@ -41,5 +48,11 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter{
 	public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
 		
 		resources.stateless(true);
+	}
+	
+	//Metodo para leitura de senha encodada
+	public PasswordEncoder passwordEncoder() {
+		
+		return new BCryptPasswordEncoder();
 	}
 }

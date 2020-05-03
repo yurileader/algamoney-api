@@ -1,4 +1,4 @@
-package com.example.algamoneyapi.config;
+	package com.example.algamoneyapi.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -31,11 +31,20 @@ public class AuthorizationServerConfig extends AuthorizationServerConfigurerAdap
 
 	    clients.inMemory()
 	            .withClient("angular")
-	            .secret("$2a$10$6YnGQCdNUjH9yz.sgRAcjOSQBKO.Nh9WjY1S73jASXfXCx3e9oIkm")
+	            .secret("$2a$10$6YnGQCdNUjH9yz.sgRAcjOSQBKO.Nh9WjY1S73jASXfXCx3e9oIkm")//senha: angular01
 	            .scopes("read", "write")
 	            .authorizedGrantTypes("password", "refresh_token")
-	            .accessTokenValiditySeconds(1800)
-	            .refreshTokenValiditySeconds(3600 * 24);
+	            .accessTokenValiditySeconds(60)
+	            .refreshTokenValiditySeconds(3600 * 24)
+	            .and()
+	            .withClient("mobile")
+	            .secret("$2a$10$zdQ2QcKeq1/VHNtPu3mRNeX6wy7nqVKjU26zN35JTreSS6rfeJoOW") //senha: mobile01
+	            .scopes("read")
+	            .authorizedGrantTypes("password", "refresh_token")
+	            .accessTokenValiditySeconds(60)
+	            .refreshTokenValiditySeconds(3600 * 24)
+	            
+	            ;
 	}
 
 	

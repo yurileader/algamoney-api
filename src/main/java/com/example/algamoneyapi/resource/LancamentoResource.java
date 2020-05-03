@@ -66,6 +66,7 @@ public class LancamentoResource {
 	      .orElse(ResponseEntity.notFound().build());
 	}
 	
+	
 	@PostMapping
 	@PreAuthorize("hasAuthority('ROLE_CADASTRAR_LANCAMENTO') and #oauth2.hasScope('write')")
 	public ResponseEntity<Lancamento> criarLancamento(@Valid @RequestBody Lancamento lancamento, HttpServletResponse response){
@@ -75,6 +76,7 @@ public class LancamentoResource {
 
 		return ResponseEntity.status(HttpStatus.CREATED).body(lancamentoSalvo);
 	}
+	
 	
 	@ExceptionHandler( {PessoaInexistenteOuInativaException.class} )
 	public ResponseEntity<Object> handlePessoaInexistenteOuInativaException (PessoaInexistenteOuInativaException ex){
@@ -87,9 +89,10 @@ public class LancamentoResource {
 	  return ResponseEntity.badRequest().body(erros);
 	}
 	
+	
 	@DeleteMapping("/{codigo}")
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	@PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO') and #oauth2.hasScope('read')")
+	@PreAuthorize("hasAuthority('ROLE_REMOVER_LANCAMENTO')")
 	public void removerLancamento(@PathVariable Long codigo) {
 
 		lancamentoRepository.deleteById(codigo);

@@ -4,6 +4,7 @@ Projeto prático do curos de FullStack da Algaworks
 Objetivo:
 + Criar uma API Restful em Java, para efetuar lançamentos de receitas de despesas
 + Criar um cliente com Angular, para consumir os serviços da API
+
 Funcionalidades/Serviços:
 
 
@@ -39,7 +40,9 @@ Atualizar um lançamento, pelo código
 Regras de Segurança: Autorização e Autenticação
 + Usuário: Admin possui autorização para utilizar todos os serviços
 + Usuário: Maria possui autorização para utilizar somente os serviços de pequisa
+
 Tecnologias:
+
 Modelo arquitetural: REST
 Linguagem: Java 8, HTML, CSS, JavaScript, TypeScript, SQL, JPQL
 Banco de dados: MySQL

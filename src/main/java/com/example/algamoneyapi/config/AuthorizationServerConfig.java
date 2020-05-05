@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -20,6 +21,7 @@ import org.springframework.security.oauth2.provider.token.store.JwtTokenStore;
 
 import com.example.algamoneyapi.config.token.CustomTokenEnhancer;
 
+@Profile("oauth-security")
 @Configuration
 @EnableAuthorizationServer
 @EnableWebSecurity
